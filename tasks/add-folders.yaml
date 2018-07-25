@@ -1,0 +1,49 @@
+---
+# - hosts: all
+#   tasks:
+  - name: get locally configured folders
+    shell: stman folder list -j
+    delegate_to: localhost
+    register: local_folder
+
+  - name: get locally configured devices
+    shell: stman device list -j
+    delegate_to: localhost
+    register: local_device
+  
+  - name: get remotely configured devices
+    command: stman device list -j
+    register: remote_device
+  
+  - name: get remotely configured folders
+    command: stman folder list -j
+    register: remote_folder
+  
+  - name: get accessible output
+    set_fact:
+      remote_box: "{{ remote_device.stdout | from_json }}"
+      remote_folders: "{{ remote_folder.stdout | from_json }}"
+      local_box: "{{ local_device.stdout | from_json }}"
+      local_folders: "{{ local_folder.stdout | from_json }}"
+  
+  # - name: investigate
+  #   debug: var={{ item }}
+  #   with_items:
+  #     - local_box
+  #     - remote_folders
+  #     - remote_box.local_device.deviceID
+  #     - local_box.remote_devices
+  #     - local_box.remote_devices[remote_box.local_device.deviceID].folders
+  
+  - name: share local folders {{ local_folders.keys()|join(", ") }} with remote
+    when: item not in local_box.remote_devices[remote_box.local_device.deviceID].folders
+    shell: stman folder share {{ item }} {{ remote_box.local_device.deviceID }}
+    with_items: "{{ local_folders.keys() | default([]) }}"
+    delegate_to: localhost
+  
+  - name: mirror local folders {{ local_folders.keys()|join(", ") }} remotely
+    command: stman folder add {{ local_folders[item].path }} {{ item }} 
+    with_items: "{{ local_folders.keys() | default([]) }}"
+    when: item not in remote_folders.keys()
+    notify: restart syncthing
+

@@ -1,0 +1,5 @@
+- hosts: all
+  vars:
+    iam: goofy
+  tasks:
+  - include: tasks/main.yml

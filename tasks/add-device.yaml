@@ -1,0 +1,26 @@
+- name: get locally configured devices
+  shell: stman device list -j
+  delegate_to: localhost
+  register: local_devices
+
+- name: get remotely configured devices
+  command: stman device list -j
+  register: remote_devices
+
+- name: get accessible output
+  set_fact:
+    remote_box: "{{ remote_devices.stdout | from_json }}"
+    local_box: "{{ local_devices.stdout | from_json }}"
+
+- name: add {{ local_box.local_device.deviceID }}
+  command: stman device add -i {{ local_box.local_device.deviceID }}
+  register: res_local_box
+  when: local_box.local_device.deviceID not in remote_box.remote_devices.keys()
+
+- name: add remote device locally
+  shell: stman device add {{ remote_box.local_device.deviceID }} 
+  delegate_to: localhost
+  register: res_local
+  when: remote_box.local_device.deviceID not in local_box.remote_devices.keys()
+  notify: restart syncthing
+

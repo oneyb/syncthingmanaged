@@ -1,0 +1,4 @@
+---
+# handlers file for syncthingmanaged
+- name: restart syncthing
+  systemd: name=syncthing state=restarted enabled=yes user=yes

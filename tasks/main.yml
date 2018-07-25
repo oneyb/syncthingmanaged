@@ -1,0 +1,8 @@
+---
+# tasks file for syncthingmanaged
+
+- include: prepare-device.yaml
+
+- include: add-device.yaml
+
+- include: add-folders.yaml

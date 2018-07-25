@@ -18,20 +18,22 @@ Role Variables
 
 Edit inventory to taste.
 
-Dependencies
-------------
-
-None.
-
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Example inventory:
 
  - inventory file contents:
+```yaml
 localhost          ansible_user=me
 box.local          ansible_user=otherme
 raspberrypi.local  ansible_user=pi
+```
+
+Running this on the one server you need:
+```bash
+ansible-playbook -i box.local, syncthingmanages.yaml --ask-become-pass -u User-Name
+```
 
 License
 -------

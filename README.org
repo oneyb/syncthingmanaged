@@ -1,15 +1,9 @@
-* Role Name
-  :PROPERTIES:
-  :CUSTOM_ID: role-name
-  :END:
+* SynthingManaged
 
 This role mirrors your local syncthing directory setup to an
 SSH-accessible Debian Linux computer
 
 ** Requirements
-   :PROPERTIES:
-   :CUSTOM_ID: requirements
-   :END:
 
 Thank you to @classicsc for the library, which I modified to produce
 JSON output.
@@ -21,16 +15,10 @@ Install it:
 #+END_SRC
 
 ** Role Variables
-   :PROPERTIES:
-   :CUSTOM_ID: role-variables
-   :END:
 
 Edit inventory to taste.
 
 ** Example Playbook
-   :PROPERTIES:
-   :CUSTOM_ID: example-playbook
-   :END:
 
 Example inventory:
 
@@ -49,32 +37,19 @@ Running this on the one server you need:
 #+END_SRC
 
 ** License
-   :PROPERTIES:
-   :CUSTOM_ID: license
-   :END:
 
 GPLv3
 
 ** Plan
-   :PROPERTIES:
-   :CUSTOM_ID: plan
-   :END:
 
 I plan to translate the fine work of @classicsc to an ansible module
-https://docs.ansible.com/ansible/2.3/dev\_guide/developing\_modules\_general.html
-- [ ] ask oneself if it still makes sense:
-https://docs.ansible.com/ansible/latest/dev\_guide/developing\_modules.html
-- [ ] consider
-file:~/github/ansible/lib/ansible/modules/cloud/centurylink/clc\_modify\_server.py
--
-https://github.com/ansible/ansible/tree/devel/lib/ansible/modules/cloud/centurylink/clc\_modify\_server.py
-- [ ] get to work
+https://docs.ansible.com/ansible/2.3/dev_guide/developing_modules_general.html
+
+  - [ ] ask oneself if it still makes sense: https://docs.ansible.com/ansible/latest/dev_guide/developing_modules.html
+  - [ ] consider file:~/github/ansible/lib/ansible/modules/cloud/centurylink/clc_modify_server.py
+  - https://github.com/ansible/ansible/tree/devel/lib/ansible/modules/cloud/centurylink/clc_modify_server.py
+  - [ ] get to work
 
 ** Thank you...
-   :PROPERTIES:
-   :CUSTOM_ID: thank-you
-   :END:
 
-#+BEGIN_EXAMPLE
     ...to @classicsc for the nice module
-#+END_EXAMPLE

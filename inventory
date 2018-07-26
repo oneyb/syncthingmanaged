@@ -1,3 +1,0 @@
-localhost      ansible_user=oney
-tinkbox.local  ansible_user=oney
-barry.local    ansible_user=pi

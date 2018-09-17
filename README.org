@@ -8,12 +8,13 @@ SSH-accessible Debian Linux computer
 Thank you to @classicsc for the library, which I modified to produce
 JSON output.
 
-Install it:
+Install it on the remote and local computers:
 
 #+BEGIN_SRC sh
     pip3 install git+https://github.com/oneyb/syncthingmanager
 #+END_SRC
 
+*The role will install it on the remote computer*
 ** Role Variables
 
 Edit inventory to taste. Please see examples. 

@@ -1,27 +1,30 @@
-- name: install necessary packages
-  apt: pkg={{ item }} update_cache=yes cache_valid_time=3600
-  become: yes
-  with_items:
-    - syncthing
-
-- name: install pip3 packages
-  pip: name={{ item }} extra_args="--upgrade" executable=pip3
-  become: yes
-  with_items:
-    # - syncthingmanager
-    - git+https://github.com/oneyb/syncthingmanager
-  notify: restart syncthing
-
-- name: configure remote device
-  command: stman configure 
-  args:
-    creates: "{{ ansible_env.HOME }}/.config/syncthingmanager/syncthingmanager.conf"
-
-- name: ensure local configuration  
-  shell: stman configure
-  delegate_to: localhost
-
-- name: make syncthing run on boot of {{ ansible_hostname }}
-  command: loginctl enable-linger {{ ansible_env.USER }}
-  become: yes
+---
+- hosts: all
+  tasks:
+  - name: install necessary packages
+    apt: pkg={{ item }} update_cache=yes cache_valid_time=3600
+    become: yes
+    with_items:
+      - syncthing
+  
+  - name: install pip3 packages
+    pip: name={{ item }} extra_args="--upgrade" executable=pip3
+    become: yes
+    with_items:
+      # - syncthingmanager
+      - git+https://github.com/oneyb/syncthingmanager
+    notify: restart syncthing
+  
+  - name: configure remote device
+    command: stman configure 
+    args:
+      creates: "{{ ansible_env.HOME }}/.config/syncthingmanager/syncthingmanager.conf"
+  
+  - name: ensure local configuration  
+    shell: stman configure
+    delegate_to: localhost
+  
+  - name: make syncthing run on boot of {{ ansible_hostname }}
+    command: loginctl enable-linger {{ ansible_env.USER }}
+    become: yes
 

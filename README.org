@@ -1,9 +1,9 @@
-* SynthingManaged
+* SyncthingManaged
 
 This role mirrors your local syncthing directory setup to an
 SSH-accessible Debian Linux computer
 
-** Requirements
+** Dependencies
 
 Thank you to @classicsc for the library, which I modified to produce
 JSON output.
@@ -16,7 +16,7 @@ Install it:
 
 ** Role Variables
 
-Edit inventory to taste.
+Edit inventory to taste. Please see examples. 
 
 ** Example Playbook
 
